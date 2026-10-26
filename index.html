@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Solucionario Interactivo Paso a Paso - Combustión: Balances de Masa y Energía">
+    <title>Combustión: Balances de Masa y Energía | Procesos Industriales</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- MathJax -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #ff6600;
+            --dark-bg: #1a1a2e;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --accent-green: #00cc66;
+            --accent-purple: #9933ff;
+            --accent-red: #ff3333;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .main-header {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--secondary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Mayor separación */
+        }
+        
+        .navbar-brand img {
+            filter: drop-shadow(0 0 10px var(--secondary-color));
+            height: 80px; /* LOGO MÁS GRANDE COMO SE SOLICITÓ */
+            width: auto;
+        }
+        
+        .navbar-brand span {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            background: linear-gradient(45deg, var(--secondary-color), #ff9933);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lab-title {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, var(--secondary-color), #ff9933);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin: 2rem 0 0.5rem 0;
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .module-divider {
+            text-align: center;
+            margin: 3rem 0 2rem 0;
+            position: relative;
+        }
+        .module-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .module-divider span {
+            background: var(--dark-bg);
+            padding: 0 1.5rem;
+            position: relative;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-purple);
+            font-size: 1.3rem;
+            border: 1px solid var(--accent-purple);
+            border-radius: 20px;
+        }
+
+        .progress-bar-custom {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 1.5rem 0 2.5rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), #ff9933);
+            width: 14.2%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-container {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .step-container.active {
+            display: block;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-card h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .challenge-card {
+            border-left: 4px solid var(--accent-red) !important;
+            background: rgba(255, 51, 51, 0.05);
+        }
+        .challenge-card h4 {
+            color: var(--accent-red) !important;
+        }
+
+        .engineering-note {
+            background: rgba(153, 51, 255, 0.15);
+            border: 1px solid rgba(153, 51, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .engineering-note i {
+            color: var(--accent-purple);
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 102, 0, 0.1);
+            border-color: var(--secondary-color);
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 1rem;
+            accent-color: var(--secondary-color);
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .quiz-option.selected {
+            background: rgba(255, 102, 0, 0.2);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--secondary-color), #ff9933);
+            border: none;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s;
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .btn-action:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 102, 0, 0.4);
+            color: #fff;
+        }
+
+        .btn-action:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ccc;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-color: #fff;
+        }
+
+        .solution-box {
+            background: rgba(0, 204, 102, 0.08);
+            border-left: 4px solid var(--accent-green);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .solution-box.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .feedback-msg {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .feedback-msg.success {
+            background: rgba(0, 204, 102, 0.15);
+            color: #00ff88;
+            border: 1px solid var(--accent-green);
+        }
+
+        .feedback-msg.error {
+            background: rgba(204, 51, 0, 0.15);
+            color: #ff6666;
+            border: 1px solid #cc3300;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 3px solid var(--secondary-color);
+            margin-top: 4rem;
+            padding: 2rem 0;
+        }
+
+        .footer-logo {
+            filter: drop-shadow(0 0 10px var(--secondary-color));
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .lab-title { font-size: 1.4rem; }
+            .info-card { padding: 1.2rem; }
+            .btn-action, .btn-back { width: 100%; margin-bottom: 0.5rem; }
+            .navbar-brand img { height: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header con Logo Ampliado a la Izquierda -->
+    <header class="main-header">
+        <div class="container">
+            <a class="navbar-brand" href="#" aria-label="Inicio">
+                <!-- IMAGE PROMPT: Logo de la universidad/facultad, fondo transparente, alta resolución -->
+                <img src="assets/images/logo.png" alt="Logo Facultad de Ingeniería" class="footer-logo">
+                <span>PROCESOS INDUSTRIALES</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="container py-4">
+            <h1 class="lab-title">
+                <i class="fas fa-fire me-3"></i>COMBUSTIÓN: BALANCES DE MASA Y ENERGÍA
+            </h1>
+            <p class="text-center text-white mb-2">Guía interactiva paso a paso. Supera los retos de ingeniería.</p>
+            <p class="text-center text-white-50 mb-4"><small>Prof. Juan Velasco Colan | 2026-2</small></p>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-custom">
+                <div class="progress-fill" id="progressBar" style="width: 14.2%;"></div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- MÓDULO 1: BALANCE DE MASA -->
+            <!-- ========================================== -->
+            <div class="module-divider"><span><i class="fas fa-weight-hanging me-2"></i>MÓDULO 1: BALANCE DE MASA</span></div>
+
+            <!-- PASO 1: Conceptos Clave -->
+            <div class="step-container active" id="step1">
+                <div class="info-card">
+                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 1 de 7</span>
+                    <h4><i class="fas fa-book me-2"></i>Fundamentos de la Combustión</h4>
+                    <p>En la industria, la combustión no es solo "quemar". Es la base de la generación de energía. Para modelarla, usamos el <strong>Análisis Orsat</strong>, que mide los gases de combustión en <strong>Base Seca</strong> (sin contar el H₂O, ya que se condensa en el equipo de medición).</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="fas fa-check text-success me-2"></i><strong>Aire Teórico:</strong> Oxígeno exacto para combustión completa (C → CO₂, H → H₂O).</li>
+                        <li><i class="fas fa-check text-success me-2"></i><strong>Aire en Exceso:</strong> Aire adicional para garantizar que todo el combustible reaccione.</li>
+                        <li><i class="fas fa-check text-success me-2"></i><strong>Composición del Aire:</strong> 21% O₂ y 79% N₂ en moles (1 mol O₂ arrastra 3.76 moles de N₂).</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Validación de Concepto</h5>
+                    <div class="mb-4">
+                        <p class="mb-2">1. ¿Por qué las normativas de emisiones (ECA) suelen expresarse en "Base Seca" (Orsat)?</p>
+                        <label class="quiz-option"><input type="radio" name="q1_1" value="a"> Porque el agua es un gas de efecto invernadero y se debe penalizar.</label>
+                        <label class="quiz-option"><input type="radio" name="q1_1" value="b"> Porque la cantidad de agua en los humos varía con la humedad del combustible y el aire, distorsionando la concentración real de contaminantes como el CO₂ o SO₂.</label>
+                        <label class="quiz-option"><input type="radio" name="q1_1" value="c"> Porque los analizadores de gases no pueden medir vapor de agua.</label>
+                    </div>
+
+                    <div id="feedback1" class="feedback-msg"></div>
+                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                        <button class="btn btn-action" id="checkBtn1" onclick="checkStep(1, {'q1_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next1" onclick="nextStep(2)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASO 2: Problema Base de Masa -->
+            <div class="step-container" id="step2">
+                <div class="info-card">
+                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 2 de 7</span>
+                    <h4><i class="fas fa-calculator me-2"></i>Problema Base: Combustión de Metano</h4>
+                    <p>Se queman <strong>100 kmol de CH₄</strong> con <strong>1500 kmol de Aire seco</strong> (21% O₂, 79% N₂). Asumimos combustión completa: <br>
+                    <span class="text-warning">CH₄ + 2 O₂ → CO₂ + 2 H₂O</span></p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="fas fa-arrow-right text-info me-2"></i>O₂ teórico necesario = 100 kmol CH₄ × 2 = 200 kmol O₂</li>
+                        <li><i class="fas fa-arrow-right text-info me-2"></i>O₂ que entra = 1500 × 0.21 = 315 kmol O₂</li>
+                        <li><i class="fas fa-arrow-right text-info me-2"></i>N₂ que entra = 1500 × 0.79 = 1185 kmol N₂</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Cálculo de Salida</h5>
+                    <div class="mb-4">
+                        <p class="mb-2">1. ¿Cuántos kmol de O₂ salen en los humos y cuál es el % de exceso de aire?</p>
+                        <label class="quiz-option"><input type="radio" name="q2_1" value="a"> Salen 115 kmol de O₂. El exceso de aire es 57.5%.</label>
+                        <label class="quiz-option"><input type="radio" name="q2_1" value="b"> Salen 200 kmol de O₂. El exceso de aire es 21%.</label>
+                        <label class="quiz-option"><input type="radio" name="q2_1" value="c"> Salen 115 kmol de O₂. El exceso de aire es 36.6%.</label>
+                    </div>
+
+                    <div id="feedback2" class="feedback-msg"></div>
+                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                        <button class="btn btn-back" onclick="prevStep(1)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
+                        <button class="btn btn-action" id="checkBtn2" onclick="checkStep(2, {'q2_1': 'a'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next2" onclick="nextStep(3)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution2">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 2</h5>
+                    <p><strong>O₂ de salida:</strong> Entra 315 - Consume 200 = <strong>115 kmol</strong>.</p>
+                    <p><strong>% Exceso de Aire:</strong> \(\frac{\text{O}_2 \text{ entra} - \text{O}_2 \text{ teórico}}{\text{O}_2 \text{ teórico}} \times 100 = \frac{315 - 200}{200} \times 100 = \textbf{57.5\%}\)</p>
+                </div>
+            </div>
+
+            <!-- PASO 3: RETO INVERSO (Cambio de parámetros) -->
+            <div class="step-container" id="step3">
+                <div class="info-card challenge-card">
+                    <span class="badge bg-danger mb-2"><i class="fas fa-exclamation-triangle me-1"></i> MODO RETO: CAMBIANDO LAS REGLAS</span>
+                    <h4><i class="fas fa-brain me-2"></i>Reto: Del Resultado a la Entrada</h4>
+                    <p>Los alumnos suelen fallar aquí. Ahora <strong>NO</strong> te damos el flujo de aire. El analizador Orsat de la chimenea reporta que los gases secos contienen <strong>8.21% de O₂</strong>. Se queman los mismos 100 kmol de CH₄.</p>
+                    <div class="engineering-note">
+                        <i class="fas fa-lightbulb me-2"></i><strong>Pista de Ingeniería:</strong> Usa el N₂ como "llave" o "tie component". Todo el N₂ que entra, sale. Y sabes que por cada mol de O₂ que entra, entran 3.76 moles de N₂. Plantea el balance atómico de Oxígeno o la relación molar en la base seca.
+                    </div>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--accent-red);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Desafío de Cálculo</h5>
+                    <div class="mb-4">
+                        <p class="mb-2">1. Si el O₂ en base seca es 8.21%, ¿cuál es el flujo total de aire suministrado (aproximadamente)?</p>
+                        <label class="quiz-option"><input type="radio" name="q3_1" value="a"> 1000 kmol de Aire</label>
+                        <label class="quiz-option"><input type="radio" name="q3_1" value="b"> 1500 kmol de Aire</label>
+                        <label class="quiz-option"><input type="radio" name="q3_1" value="c"> 2000 kmol de Aire</label>
+                    </div>
+
+                    <div id="feedback3" class="feedback-msg"></div>
+                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                        <button class="btn btn-back" onclick="prevStep(2)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
+                        <button class="btn btn-action" id="checkBtn3" onclick="checkStep(3, {'q3_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next3" onclick="nextStep(4)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Ir al Balance de Energía <i class="fas fa-bolt ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution3">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Desglose del Reto</h5>
+                    <p>1. Gases secos de salida: CO₂ = 100 kmol. Sea \(y\) el O₂ de salida. El N₂ de salida es \(3.76 \times \text{O}_2\text{entrada}\).</p>
+                    <p>2. Sabemos que en base seca: \(\frac{y}{100 + y + N_2} = 0.0821\)</p>
+                    <p>3. Resolviendo el sistema de balances atómicos, llegamos a que el O₂ que entra es 315 kmol, lo que equivale a <strong>1500 kmol de aire</strong>. ¡El mismo resultado, pero obtenido ingenierilmente a partir de un dato de salida!</p>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- MÓDULO 2: BALANCE DE ENERGÍA -->
+            <!-- ========================================== -->
+            <div class="module-divider"><span><i class="fas fa-bolt me-2"></i>MÓDULO 2: BALANCE DE ENERGÍA</span></div>
+
+            <!-- PASO 4: Conceptos Clave de Energía -->
+            <div class="step-container" id="step4">
+                <div class="info-card">
+                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 4 de 7</span>
+                    <h4><i class="fas fa-thermometer-half me-2"></i>Entalpía como Función de Estado</h4>
+                    <p>La entalpía (H) NO depende de la trayectoria, solo del estado inicial y final. Como es imposible calcular la reacción a temperaturas variables, inventamos una <strong>trayectoria hipotética en 3 pasos</strong> que pasa por la temperatura de referencia (25°C).</p>
+                    <!-- IMAGE PROMPT: Diagrama de flujo que muestre: 1. Enfriar reactivos a 25°C (ΔHF1). 2. Reacción a 25°C (ΔHRxn). 3. Calentar productos a Tsalida (ΔHF2). Flechas claras, estilo ingeniería, fondo oscuro. -->
+                    <img src="assets/images/trayectoria_enthalpy.png" alt="Diagrama de trayectoria hipotética de 3 pasos" class="img-fluid rounded my-3" style="border: 1px solid var(--secondary-color); max-width: 100%;">
+                    
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="fas fa-fire text-danger me-2"></i><strong>Calor Sensible:</strong> Cambio de temperatura sin cambio de fase (\(n \cdot Cp \cdot \Delta T\)).</li>
+                        <li><i class="fas fa-tint text-info me-2"></i><strong>Calor Latente:</strong> Cambio de fase a T constante (ej. \(\Delta H_{vap}\) del agua).</li>
+                        <li><i class="fas fa-book text-warning me-2"></i><strong>Tablas B:</strong> Usa \(\Delta H_f^\circ\) (Formación) o \(\Delta H_c^\circ\) (Combustión). <em>¡OJO!</em> En \(\Delta H_c^\circ\), el agua producto se considera <strong>líquida</strong> a 25°C.</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Validación de Concepto</h5>
+                    <div class="mb-4">
+                        <p class="mb-2">1. Si usas la tabla de Calor de Combustión Estándar (\(\Delta H_c^\circ\)) para calcular el \(\Delta H_{Rxn}\), ¿en qué estado físico se considera el agua producida a 25°C?</p>
+                        <label class="quiz-option"><input type="radio" name="q4_1" value="a"> Vapor (g), porque es una combustión y hace calor.</label>
+                        <label class="quiz-option"><input type="radio" name="q4_1" value="b"> Líquido (l), por convención de las tablas termodinámicas estándar.</label>
+                        <label class="quiz-option"><input type="radio" name="q4_1" value="c"> Depende de la presión del reactor.</label>
+                    </div>
+
+                    <div id="feedback4" class="feedback-msg"></div>
+                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                        <button class="btn btn-back" onclick="prevStep(3)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
+                        <button class="btn btn-action" id="checkBtn4" onclick="checkStep(4, {'q4_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next4" onclick="nextStep(5)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASO 5: Problema Base de Energía -->
+            <div class="step-container" id="step5">
+                <div class="info-card">
+                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 5 de 7</span>
+                    <h4><i class="fas fa-fire me-2"></i>Balance de Energía: Combustión de Metano</h4>
+                    <p>Usamos los 100 kmol de CH₄ del paso 2. El aire entra a 50°C, los productos salen a 200°C.</p>
+                    <p><strong>Datos:</strong> \(\Delta H_c^\circ(\text{CH}_4) = -890,360 \text{ kJ/kmol}\) (genera H₂O líquida). \(Cp_{\text{H}_2\text{O}(l)} = 75.4\), \(Cp_{\text{H}_2\text{O}(g)} = 34 \text{ kJ/kmol·°C}\). \(\Delta H_{vap} = 40,650 \text{ kJ/kmol}\) a 100°C.</p>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>El Reto del Agua (Latente + Sensible)</h5>
+                    <div class="mb-4">
+                        <p class="mb-2">1. Para llevar el H₂O producto desde el estado de referencia (líquido a 25°C, por la tabla de combustión) hasta vapor a 200°C, ¿qué secuencia de cálculos es la correcta?</p>
+                        <label class="quiz-option"><input type="radio" name="q5_1" value="a"> Solo \(n \cdot Cp_{gas} \cdot (200 - 25)\).</label>
+                        <label class="quiz-option"><input type="radio" name="q5_1" value="b"> Calentar líquido (25→100°C) + Vaporizar a 100°C + Calentar vapor (100→200°C).</label>
+                        <label class="quiz-option"><input type="radio" name="q5_1" value="c"> Vaporizar a 25°C y luego calentar el vapor a 200°C.</label>
+                    </div>
+
+                    <div id="feedback5" class="feedback-msg"></div>
+                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                        <button class="btn btn-back" onclick="prevStep(4)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
+                        <button class="btn btn-action" id="checkBtn5" onclick="checkStep(5, {'q5_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next5" onclick="nextStep(6)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution5">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 5</h5>
+                    <p>La trayectoria correcta para el agua (20 kmol) es:</p>
+                    <ol>
+                        <li>Sensible líquido: \(20 \times 75.4 \times (100 - 25) = 113,100 \text{ kJ}\)</li>
+                        <li>Latente (vaporización): \(20 \times 40,650 = 813,000 \text{ kJ}\)</li>
+                        <li>Sensible vapor: \(20 \times 34 \times (200 - 100) = 68,000 \text{ kJ}\)</li>
+                    </ol>
+                    <p><strong>Total H₂O:</strong> 994,100 kJ. ¡Ignorar el calor latente es el error más común en exámenes!</p>
+                </div>
+            </div>
+
+            <!-- PASO 6: RETO DE CAMBIO DE CONDICIÓN -->
+            <div class="step-container" id="step6">
+                <div class="info-card challenge-card">
+                    <span class="badge bg-danger mb-2"><i class="fas fa-exclamation-triangle me-1"></i> MODO RETO: CAMBIANDO LAS REGLAS</span>
+                    <h4><i class="fas fa-random me-2"></i>Reto: Cambio de Condición de Frontera</h4>
+                    <p>En el problema anterior, el agua salía como vapor a 200°C. Ahora, el ingeniero de planta instala un <strong>condensador</strong> en la salida de los humos. El agua ahora sale como <strong>líquido a 25°C</strong>.</p>
+                    <div class="engineering-note">
+                        <i class="fas fa-lightbulb me-2"></i><strong>Pista de Ingeniería:</strong> Si el estado final del agua es líquido a 25°C, y nuestro estado de referencia para la tabla de \(\Delta H_c^\circ\) YA ES líquido a 25°C... ¿cuánto es el cambio de entalpía (\(\Delta H_{F2}\)) para el agua en este nuevo escenario?
+                    </div>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--accent-red);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Desafío de Análisis</h5>
+                    <div class="mb-4">
+                        <p class="mb-2">1. ¿Cuál es el valor de \(\Delta H_{F2}\) (calentamiento de productos) específicamente para la corriente de agua en este nuevo escenario?</p>
+                        <label class="quiz-option"><input type="radio" name="q6_1" value="a"> 994,100 kJ (es el mismo, la energía se conserva).</label>
+                        <label class="quiz-option"><input type="radio" name="q6_1" value="b"> 0 kJ, porque no hay cambio de temperatura ni de fase respecto a la referencia de 25°C líquido.</label>
+                        <label class="quiz-option"><input type="radio" name="q6_1" value="c"> -994,100 kJ, porque se está enfriando.</label>
+                    </div>
+
+                    <div id="feedback6" class="feedback-msg"></div>
+                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                        <button class="btn btn-back" onclick="prevStep(5)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
+                        <button class="btn btn-action" id="checkBtn6" onclick="checkStep(6, {'q6_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next6" onclick="nextStep(7)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Evaluación Final <i class="fas fa-flag-checkered ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution6">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Desglose del Reto</h5>
+                    <p><strong>Respuesta: 0 kJ.</strong></p>
+                    <p>La entalpía es una función de estado. Si la tabla de \(\Delta H_c^\circ\) asume que el agua producto está a 25°C en estado líquido, y tu condición de salida real es EXACTAMENTE esa, no hay trayectoria que calcular. \(\Delta H = H_{final} - H_{inicial} = H_{25°C, liq} - H_{25°C, liq} = 0\). Este cambio ahorra una enorme cantidad de energía que antes se "perdía" calentando y vaporizando el agua.</p>
+                </div>
+            </div>
+
+            <!-- PASO 7: Integración y Normativa -->
+            <div class="step-container" id="step7">
+                <div class="info-card">
+                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 7 de 7</span>
+                    <h4><i class="fas fa-globe-americas me-2"></i>Impacto Real: Sostenibilidad y Normativa</h4>
+                    <p>Los balances no son solo números; son dinero y competitividad. Un exceso de aire mal calculado significa que estás gastando energía en calentar Nitrógeno (que no participa en la reacción) y lo estás expulsando por la chimenea.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="fas fa-file-contract text-warning me-2"></i><strong>Ley N° 30754 (Perú):</strong> Obligación de reportar GEI (INFOCARBONO).</li>
+                        <li><i class="fas fa-euro-sign text-info me-2"></i><strong>CBAM (Unión Europea):</strong> A partir de 2026, gravará importaciones con alta huella de carbono. Un balance de energía optimizado es tu mejor defensa arancelaria.</li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Decisión de Ingeniería</h5>
+                    <div class="mb-4">
+                        <p class="mb-2">1. Para reducir la huella de carbono y mejorar la eficiencia de una caldera, ¿qué acción directa se deriva de un balance de materia riguroso?</p>
+                        <label class="quiz-option"><input type="radio" name="q7_1" value="a"> Aumentar el exceso de aire al 100% para asegurar que no se genere CO.</label>
+                        <label class="quiz-option"><input type="radio" name="q7_1" value="b"> Optimizar el % de aire en exceso (ej. bajarlo de 57% a 15-20% con buenos quemadores) para minimizar el calor sensible perdido en el N₂ de los humos.</label>
+                        <label class="quiz-option"><input type="radio" name="q7_1" value="c"> Cambiar a un combustible con mayor contenido de carbono.</label>
+                    </div>
+
+                    <div id="feedback7" class="feedback-msg"></div>
+                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                        <button class="btn btn-back" onclick="prevStep(6)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
+                        <button class="btn btn-action" id="checkBtn7" onclick="checkStep(7, {'q7_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="finishBtn" onclick="finishLab()" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Finalizar Módulo <i class="fas fa-trophy ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution7">
+                    <h5><i class="fas fa-trophy me-2 text-warning"></i>¡Módulo Completado!</h5>
+                    <p><strong>Conclusión:</strong> Has demostrado que no solo sabes seguir una fórmula, sino que puedes adaptar el balance de masa y energía cuando las condiciones del proceso cambian (cálculo inverso, cambio de fase). Esta es la esencia del pensamiento ingenieril.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <img src="assets/images/logo.png" alt="Logo" height="60" class="footer-logo mb-2">
+                    <p class="text-white mb-0">
+                        Herramientas para el estudio de procesos industriales.<br>
+                        <small>Prof. Juan Velasco Colan (2026-2)</small>
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="text-white mb-0">
+                        <i class="fas fa-university me-2"></i>Facultad de Ingeniería<br>
+                        <small>Ingeniería Industrial</small>
+                    </p>
+                </div>
+            </div>
+            <hr class="my-3" style="border-color: var(--secondary-color); opacity: 0.3;">
+            <div class="text-center text-white">
+                <small>&copy; 2026 Procesos Industriales. Todos los derechos reservados.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Highlight selected quiz option visually
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const name = this.querySelector('input').name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.parentElement.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                this.querySelector('input').checked = true;
+            });
+        });
+
+        function checkStep(stepNum, correctAnswers) {
+            let allCorrect = true;
+            let feedbackEl = document.getElementById(`feedback${stepNum}`);
+            let checkBtn = document.getElementById(`checkBtn${stepNum}`);
+            let nextBtn = document.getElementById(stepNum === 7 ? 'finishBtn' : `next${stepNum}`);
+            let solutionBox = document.getElementById(`solution${stepNum}`);
+            
+            for (const [key, value] of Object.entries(correctAnswers)) {
+                const selected = document.querySelector(`input[name="${key}"]:checked`);
+                if (!selected || selected.value !== value) {
+                    allCorrect = false;
+                    break;
+                }
+            }
+
+            if (allCorrect) {
+                feedbackEl.className = 'feedback-msg success';
+                feedbackEl.innerHTML = '<i class="fas fa-check-circle me-2"></i>¡Correcto! Has demostrado comprensión del concepto.';
+                feedbackEl.style.display = 'block';
+                
+                solutionBox.classList.add('show');
+                nextBtn.classList.remove('d-none');
+                checkBtn.disabled = true;
+                checkBtn.innerHTML = '<i class="fas fa-check me-2"></i>Verificado';
+                
+                if (window.MathJax) {
+                    MathJax.typesetPromise([solutionBox]);
+                }
+            } else {
+                feedbackEl.className = 'feedback-msg error';
+                // Mensajes personalizados para los retos
+                if(stepNum === 3 || stepNum === 6) {
+                    feedbackEl.innerHTML = '<i class="fas fa-times-circle me-2"></i>Respuesta incorrecta. Recuerda: en los "Modos Reto", las reglas cambian. Revisa la "Pista de Ingeniería" en la tarjeta roja y vuelve a intentarlo.';
+                } else {
+                    feedbackEl.innerHTML = '<i class="fas fa-times-circle me-2"></i>Respuesta incorrecta. Revisa la información del paso, selecciona otra opción y vuelve a verificar.';
+                }
+                feedbackEl.style.display = 'block';
+                solutionBox.classList.remove('show');
+                nextBtn.classList.add('d-none');
+                
+                feedbackEl.style.animation = 'none';
+                setTimeout(() => {
+                    feedbackEl.style.animation = 'fadeIn 0.3s';
+                }, 10);
+            }
+        }
+
+        function nextStep(nextStepNum) {
+            document.querySelectorAll('.step-container').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById(`step${nextStepNum}`).classList.add('active');
+            
+            const progress = (nextStepNum / 7) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function prevStep(prevStepNum) {
+            document.querySelectorAll('.step-container').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById(`step${prevStepNum}`).classList.add('active');
+            
+            const progress = (prevStepNum / 7) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function finishLab() {
+            const modalHtml = `
+                <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="background: #1a1a2e; border: 1px solid var(--accent-green); color: #fff;">
+                            <div class="modal-header border-bottom-0">
+                                <h5 class="modal-title" style="color: var(--accent-green);"><i class="fas fa-award me-2"></i>¡Módulo de Combustión Completado!</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
+                                <p>Has dominado los balances de masa y energía, incluyendo los retos de cambio de parámetros.</p>
+                                <p class="text-white-50">Prof. Juan Velasco Colan (2026-2)</p>
+                            </div>
+                            <div class="modal-footer border-top-0 justify-content-center">
+                                <button type="button" class="btn btn-action" data-bs-dismiss="modal">
+                                    <i class="fas fa-redo me-2"></i>Repasar Módulo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            const modal = new bootstrap.Modal(document.getElementById('successModal'));
+            modal.show();
+        }
+    </script>
+</body>
+</html>
