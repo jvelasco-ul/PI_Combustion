@@ -354,6 +354,11 @@
                         </button>
                     </div>
                 </div>
+
+                <div class="solution-box" id="solution1">
+                    <h5><i class="fas fa-check-double me-2 text-success"></i>Explicación del Paso 1</h5>
+                    <p><strong>Respuesta: opción b).</strong> El análisis Orsat se reporta en base seca porque la cantidad de vapor de agua en los humos depende de la humedad del combustible y del aire (que varían constantemente). Si se midiera en base húmeda, la concentración de contaminantes como CO₂ o SO₂ quedaría "diluida" por el agua y no reflejaría la contaminación real. Por eso las normativas (ECA) excluyen el H₂O de la medición.</p>
+                </div>
             </div>
 
             <!-- PASO 2: Problema Base de Masa -->
@@ -666,12 +671,12 @@
                 feedbackEl.innerHTML = '<i class="fas fa-check-circle me-2"></i>¡Correcto! Has demostrado comprensión del concepto.';
                 feedbackEl.style.display = 'block';
                 
-                solutionBox.classList.add('show');
-                nextBtn.classList.remove('d-none');
+                if (solutionBox) solutionBox.classList.add('show');
+                if (nextBtn) nextBtn.classList.remove('d-none');
                 checkBtn.disabled = true;
                 checkBtn.innerHTML = '<i class="fas fa-check me-2"></i>Verificado';
                 
-                if (window.MathJax) {
+                if (window.MathJax && solutionBox) {
                     MathJax.typesetPromise([solutionBox]);
                 }
             } else {
@@ -683,8 +688,8 @@
                     feedbackEl.innerHTML = '<i class="fas fa-times-circle me-2"></i>Respuesta incorrecta. Revisa la información del paso, selecciona otra opción y vuelve a verificar.';
                 }
                 feedbackEl.style.display = 'block';
-                solutionBox.classList.remove('show');
-                nextBtn.classList.add('d-none');
+                if (solutionBox) solutionBox.classList.remove('show');
+                if (nextBtn) nextBtn.classList.add('d-none');
                 
                 feedbackEl.style.animation = 'none';
                 setTimeout(() => {
