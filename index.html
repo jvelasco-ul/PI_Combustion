@@ -47,12 +47,12 @@
         .navbar-brand {
             display: flex;
             align-items: center;
-            gap: 20px; /* Mayor separación */
+            gap: 20px;
         }
         
         .navbar-brand img {
             filter: drop-shadow(0 0 10px var(--secondary-color));
-            height: 80px; /* LOGO MÁS GRANDE COMO SE SOLICITÓ */
+            height: 80px; /* LOGO AMPLIADO A LA IZQUIERDA */
             width: auto;
         }
         
@@ -112,7 +112,7 @@
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--secondary-color), #ff9933);
-            width: 14.2%;
+            width: 12.5%; /* 100% / 8 pasos */
             transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -296,7 +296,6 @@
     <header class="main-header">
         <div class="container">
             <a class="navbar-brand" href="#" aria-label="Inicio">
-                <!-- IMAGE PROMPT: Logo de la universidad/facultad, fondo transparente, alta resolución -->
                 <img src="assets/images/logo.png" alt="Logo Facultad de Ingeniería" class="footer-logo">
                 <span>PROCESOS INDUSTRIALES</span>
             </a>
@@ -314,7 +313,7 @@
 
             <!-- Progress Bar -->
             <div class="progress-bar-custom">
-                <div class="progress-fill" id="progressBar" style="width: 14.2%;"></div>
+                <div class="progress-fill" id="progressBar" style="width: 12.5%;"></div>
             </div>
 
             <!-- ========================================== -->
@@ -325,9 +324,10 @@
             <!-- PASO 1: Conceptos Clave -->
             <div class="step-container active" id="step1">
                 <div class="info-card">
-                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 1 de 7</span>
+                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 1 de 8</span>
                     <h4><i class="fas fa-book me-2"></i>Fundamentos de la Combustión</h4>
                     <p>En la industria, la combustión no es solo "quemar". Es la base de la generación de energía. Para modelarla, usamos el <strong>Análisis Orsat</strong>, que mide los gases de combustión en <strong>Base Seca</strong> (sin contar el H₂O, ya que se condensa en el equipo de medición).</p>
+                    <img src="assets/images/orsat_diagram.png" alt="Diagrama Base Húmeda vs Base Seca Orsat" class="img-fluid rounded my-3" style="border: 1px solid var(--secondary-color); max-width: 100%;">
                     <ul class="list-unstyled mt-3">
                         <li><i class="fas fa-check text-success me-2"></i><strong>Aire Teórico:</strong> Oxígeno exacto para combustión completa (C → CO₂, H → H₂O).</li>
                         <li><i class="fas fa-check text-success me-2"></i><strong>Aire en Exceso:</strong> Aire adicional para garantizar que todo el combustible reaccione.</li>
@@ -357,14 +357,14 @@
 
                 <div class="solution-box" id="solution1">
                     <h5><i class="fas fa-check-double me-2 text-success"></i>Explicación del Paso 1</h5>
-                    <p><strong>Respuesta: opción b).</strong> El análisis Orsat se reporta en base seca porque la cantidad de vapor de agua en los humos depende de la humedad del combustible y del aire (que varían constantemente). Si se midiera en base húmeda, la concentración de contaminantes como CO₂ o SO₂ quedaría "diluida" por el agua y no reflejaría la contaminación real. Por eso las normativas (ECA) excluyen el H₂O de la medición.</p>
+                    <p><strong>Respuesta: opción b).</strong> El análisis Orsat se reporta en base seca porque la cantidad de vapor de agua en los humos depende de la humedad del combustible y del aire (que varían constantemente). Si se midiera en base húmeda, la concentración de contaminantes como CO₂ o SO₂ quedaría "diluida" por el agua y no reflejaría la contaminación real.</p>
                 </div>
             </div>
 
             <!-- PASO 2: Problema Base de Masa -->
             <div class="step-container" id="step2">
                 <div class="info-card">
-                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 2 de 7</span>
+                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 2 de 8</span>
                     <h4><i class="fas fa-calculator me-2"></i>Problema Base: Combustión de Metano</h4>
                     <p>Se queman <strong>100 kmol de CH₄</strong> con <strong>1500 kmol de Aire seco</strong> (21% O₂, 79% N₂). Asumimos combustión completa: <br>
                     <span class="text-warning">CH₄ + 2 O₂ → CO₂ + 2 H₂O</span></p>
@@ -403,21 +403,21 @@
                 </div>
             </div>
 
-            <!-- PASO 3: RETO INVERSO (Cambio de parámetros) -->
+            <!-- PASO 3: RETO INVERSO (Cambio de parámetros con Ecuaciones Desplegadas) -->
             <div class="step-container" id="step3">
                 <div class="info-card challenge-card">
                     <span class="badge bg-danger mb-2"><i class="fas fa-exclamation-triangle me-1"></i> MODO RETO: CAMBIANDO LAS REGLAS</span>
                     <h4><i class="fas fa-brain me-2"></i>Reto: Del Resultado a la Entrada</h4>
-                    <p>Los alumnos suelen fallar aquí. Ahora <strong>NO</strong> te damos el flujo de aire. El analizador Orsat de la chimenea reporta que los gases secos contienen <strong>8.21% de O₂</strong>. Se queman los mismos 100 kmol de CH₄.</p>
+                    <p>El analizador Orsat de la chimenea reporta que los gases secos contienen <strong>8.21% de O₂</strong>. Se queman los mismos 100 kmol de CH₄. <strong>NO</strong> conocemos el flujo de aire suministrado.</p>
                     <div class="engineering-note">
-                        <i class="fas fa-lightbulb me-2"></i><strong>Pista de Ingeniería:</strong> Usa el N₂ como "llave" o "tie component". Todo el N₂ que entra, sale. Y sabes que por cada mol de O₂ que entra, entran 3.76 moles de N₂. Plantea el balance atómico de Oxígeno o la relación molar en la base seca.
+                        <i class="fas fa-lightbulb me-2"></i><strong>Pista de Ingeniería:</strong> Plantea una incógnita \(A\) para el aire total. Recuerda que todo el N₂ que entra, sale, y el CO₂ generado es fijo por la estequiometría del carbono.
                     </div>
                 </div>
 
                 <div class="info-card" style="border-left-color: var(--accent-red);">
                     <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Desafío de Cálculo</h5>
                     <div class="mb-4">
-                        <p class="mb-2">1. Si el O₂ en base seca es 8.21%, ¿cuál es el flujo total de aire suministrado (aproximadamente)?</p>
+                        <p class="mb-2">1. Resolviendo el balance, ¿cuál es el flujo total de aire suministrado \(A\)?</p>
                         <label class="quiz-option"><input type="radio" name="q3_1" value="a"> 1000 kmol de Aire</label>
                         <label class="quiz-option"><input type="radio" name="q3_1" value="b"> 1500 kmol de Aire</label>
                         <label class="quiz-option"><input type="radio" name="q3_1" value="c"> 2000 kmol de Aire</label>
@@ -430,16 +430,81 @@
                             <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
                         </button>
                         <button class="btn btn-action d-none" id="next3" onclick="nextStep(4)" style="background: linear-gradient(135deg, #00cc66, #009955);">
-                            Ir al Balance de Energía <i class="fas fa-bolt ms-2"></i>
+                            Siguiente Reto <i class="fas fa-arrow-right ms-2"></i>
                         </button>
                     </div>
                 </div>
 
                 <div class="solution-box" id="solution3">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Desglose del Sistema de Ecuaciones</h5>
+                    <p>Sea \(A\) = kmol de aire suministrado.</p>
+                    <ul>
+                        <li>O₂ que entra = \(0.21 A\)</li>
+                        <li>N₂ que entra (y sale) = \(0.79 A\)</li>
+                        <li>CO₂ que sale = 100 kmol (por balance de C)</li>
+                        <li>O₂ que sale = \(0.21 A - 200\) (el que entra menos el que consume la reacción)</li>
+                    </ul>
+                    <p><strong>Total de gases secos a la salida:</strong><br>
+                    \( \text{Total}_{seco} = \text{CO}_2 + \text{O}_{2,sale} + \text{N}_{2,sale} \)<br>
+                    \( \text{Total}_{seco} = 100 + (0.21 A - 200) + 0.79 A = A - 100 \)</p>
+                    
+                    <p><strong>Ecuación del dato Orsat (8.21% = 0.0821):</strong><br>
+                    \( \frac{\text{O}_{2,sale}}{\text{Total}_{seco}} = 0.0821 \implies \frac{0.21 A - 200}{A - 100} = 0.0821 \)</p>
+                    
+                    <p><strong>Resolviendo para \(A\):</strong><br>
+                    \( 0.21 A - 200 = 0.0821 A - 8.21 \)<br>
+                    \( 0.21 A - 0.0821 A = 200 - 8.21 \)<br>
+                    \( 0.1279 A = 191.79 \)<br>
+                    \( A = \frac{191.79}{0.1279} \approx \textbf{1500 kmol de Aire} \)</p>
+                </div>
+            </div>
+
+            <!-- PASO 4: NUEVO RETO - Combustión Incompleta (Rompe el esquema mental) -->
+            <div class="step-container" id="step4">
+                <div class="info-card challenge-card">
+                    <span class="badge bg-danger mb-2"><i class="fas fa-exclamation-triangle me-1"></i> MODO RETO: CONDICIÓN REAL DE PLANTA</span>
+                    <h4><i class="fas fa-skull-crossbones me-2"></i>Reto: El CO Traicionero (Combustión Incompleta)</h4>
+                    <p>En la realidad, los quemadores no son perfectos. Supongamos que de los 100 kmol de CH₄, <strong>90 kmol se queman completamente a CO₂</strong>, pero <strong>10 kmol se queman incompletamente a CO</strong>.</p>
+                    <p>Reacciones:<br>
+                    1) \( \text{CH}_4 + 2\text{O}_2 \rightarrow \text{CO}_2 + 2\text{H}_2\text{O} \) (90 kmol)<br>
+                    2) \( \text{CH}_4 + 1.5\text{O}_2 \rightarrow \text{CO} + 2\text{H}_2\text{O} \) (10 kmol)</p>
+                    <div class="engineering-note">
+                        <i class="fas fa-lightbulb me-2"></i><strong>Pista:</strong> La combustión incompleta consume MENOS oxígeno por mol de combustible. Si mantenemos los mismos 1500 kmol de aire del problema base, ¿cuánto O₂ sobrará ahora?
+                    </div>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--accent-red);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Desafío de Cálculo</h5>
+                    <div class="mb-4">
+                        <p class="mb-2">1. Con 1500 kmol de aire suministrados, ¿cuánto O₂ sale ahora en los humos?</p>
+                        <label class="quiz-option"><input type="radio" name="q4_1" value="a"> 115 kmol (no cambia, el O₂ es el mismo).</label>
+                        <label class="quiz-option"><input type="radio" name="q4_1" value="b"> 120 kmol (se consumió menos O₂, por lo que sobra más).</label>
+                        <label class="quiz-option"><input type="radio" name="q4_1" value="c"> 100 kmol (se necesita más aire para quemar el CO).</label>
+                    </div>
+
+                    <div id="feedback4" class="feedback-msg"></div>
+                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                        <button class="btn btn-back" onclick="prevStep(3)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
+                        <button class="btn btn-action" id="checkBtn4" onclick="checkStep(4, {'q4_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next4" onclick="nextStep(5)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Ir al Balance de Energía <i class="fas fa-bolt ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution4">
                     <h5><i class="fas fa-calculator me-2 text-success"></i>Desglose del Reto</h5>
-                    <p>1. Gases secos de salida: CO₂ = 100 kmol. Sea \(y\) el O₂ de salida. El N₂ de salida es \(3.76 \times \text{O}_2\text{entrada}\).</p>
-                    <p>2. Sabemos que en base seca: \(\frac{y}{100 + y + N_2} = 0.0821\)</p>
-                    <p>3. Resolviendo el sistema de balances atómicos, llegamos a que el O₂ que entra es 315 kmol, lo que equivale a <strong>1500 kmol de aire</strong>. ¡El mismo resultado, pero obtenido ingenierilmente a partir de un dato de salida!</p>
+                    <p><strong>O₂ Consumido:</strong><br>
+                    - Para 90 kmol a CO₂: \( 90 \times 2 = 180 \text{ kmol O}_2 \)<br>
+                    - Para 10 kmol a CO: \( 10 \times 1.5 = 15 \text{ kmol O}_2 \)<br>
+                    - Total consumido = \( 180 + 15 = 195 \text{ kmol O}_2 \)</p>
+                    <p><strong>O₂ de Salida:</strong><br>
+                    Entra (315) - Consume (195) = <strong>120 kmol de O₂</strong>.</p>
+                    <div class="engineering-note">
+                        <i class="fas fa-exclamation-triangle me-2"></i><strong>Lección:</strong> La presencia de CO en los humos indica que sobró oxígeno que no se usó eficientemente, ¡y además se perdió energía porque el CO tiene poder calorífico residual!
+                    </div>
                 </div>
             </div>
 
@@ -448,13 +513,12 @@
             <!-- ========================================== -->
             <div class="module-divider"><span><i class="fas fa-bolt me-2"></i>MÓDULO 2: BALANCE DE ENERGÍA</span></div>
 
-            <!-- PASO 4: Conceptos Clave de Energía -->
-            <div class="step-container" id="step4">
+            <!-- PASO 5: Conceptos Clave de Energía -->
+            <div class="step-container" id="step5">
                 <div class="info-card">
-                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 4 de 7</span>
+                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 5 de 8</span>
                     <h4><i class="fas fa-thermometer-half me-2"></i>Entalpía como Función de Estado</h4>
-                    <p>La entalpía (H) NO depende de la trayectoria, solo del estado inicial y final. Como es imposible calcular la reacción a temperaturas variables, inventamos una <strong>trayectoria hipotética en 3 pasos</strong> que pasa por la temperatura de referencia (25°C).</p>
-                    <!-- IMAGE PROMPT: Diagrama de flujo que muestre: 1. Enfriar reactivos a 25°C (ΔHF1). 2. Reacción a 25°C (ΔHRxn). 3. Calentar productos a Tsalida (ΔHF2). Flechas claras, estilo ingeniería, fondo oscuro. -->
+                    <p>La entalpía (H) NO depende de la trayectoria. Como es imposible calcular la reacción a temperaturas variables directamente, inventamos una <strong>trayectoria hipotética en 3 pasos</strong> que pasa por la temperatura de referencia (25°C).</p>
                     <img src="assets/images/trayectoria_enthalpy.png" alt="Diagrama de trayectoria hipotética de 3 pasos" class="img-fluid rounded my-3" style="border: 1px solid var(--secondary-color); max-width: 100%;">
                     
                     <ul class="list-unstyled mt-3">
@@ -468,40 +532,9 @@
                     <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Validación de Concepto</h5>
                     <div class="mb-4">
                         <p class="mb-2">1. Si usas la tabla de Calor de Combustión Estándar (\(\Delta H_c^\circ\)) para calcular el \(\Delta H_{Rxn}\), ¿en qué estado físico se considera el agua producida a 25°C?</p>
-                        <label class="quiz-option"><input type="radio" name="q4_1" value="a"> Vapor (g), porque es una combustión y hace calor.</label>
-                        <label class="quiz-option"><input type="radio" name="q4_1" value="b"> Líquido (l), por convención de las tablas termodinámicas estándar.</label>
-                        <label class="quiz-option"><input type="radio" name="q4_1" value="c"> Depende de la presión del reactor.</label>
-                    </div>
-
-                    <div id="feedback4" class="feedback-msg"></div>
-                    <div class="d-flex gap-3 mt-3 flex-wrap">
-                        <button class="btn btn-back" onclick="prevStep(3)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
-                        <button class="btn btn-action" id="checkBtn4" onclick="checkStep(4, {'q4_1': 'b'})">
-                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
-                        </button>
-                        <button class="btn btn-action d-none" id="next4" onclick="nextStep(5)" style="background: linear-gradient(135deg, #00cc66, #009955);">
-                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PASO 5: Problema Base de Energía -->
-            <div class="step-container" id="step5">
-                <div class="info-card">
-                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 5 de 7</span>
-                    <h4><i class="fas fa-fire me-2"></i>Balance de Energía: Combustión de Metano</h4>
-                    <p>Usamos los 100 kmol de CH₄ del paso 2. El aire entra a 50°C, los productos salen a 200°C.</p>
-                    <p><strong>Datos:</strong> \(\Delta H_c^\circ(\text{CH}_4) = -890,360 \text{ kJ/kmol}\) (genera H₂O líquida). \(Cp_{\text{H}_2\text{O}(l)} = 75.4\), \(Cp_{\text{H}_2\text{O}(g)} = 34 \text{ kJ/kmol·°C}\). \(\Delta H_{vap} = 40,650 \text{ kJ/kmol}\) a 100°C.</p>
-                </div>
-
-                <div class="info-card" style="border-left-color: var(--secondary-color);">
-                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>El Reto del Agua (Latente + Sensible)</h5>
-                    <div class="mb-4">
-                        <p class="mb-2">1. Para llevar el H₂O producto desde el estado de referencia (líquido a 25°C, por la tabla de combustión) hasta vapor a 200°C, ¿qué secuencia de cálculos es la correcta?</p>
-                        <label class="quiz-option"><input type="radio" name="q5_1" value="a"> Solo \(n \cdot Cp_{gas} \cdot (200 - 25)\).</label>
-                        <label class="quiz-option"><input type="radio" name="q5_1" value="b"> Calentar líquido (25→100°C) + Vaporizar a 100°C + Calentar vapor (100→200°C).</label>
-                        <label class="quiz-option"><input type="radio" name="q5_1" value="c"> Vaporizar a 25°C y luego calentar el vapor a 200°C.</label>
+                        <label class="quiz-option"><input type="radio" name="q5_1" value="a"> Vapor (g), porque es una combustión y hace calor.</label>
+                        <label class="quiz-option"><input type="radio" name="q5_1" value="b"> Líquido (l), por convención de las tablas termodinámicas estándar.</label>
+                        <label class="quiz-option"><input type="radio" name="q5_1" value="c"> Depende de la presión del reactor.</label>
                     </div>
 
                     <div id="feedback5" class="feedback-msg"></div>
@@ -515,37 +548,24 @@
                         </button>
                     </div>
                 </div>
-
-                <div class="solution-box" id="solution5">
-                    <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 5</h5>
-                    <p>La trayectoria correcta para el agua (20 kmol) es:</p>
-                    <ol>
-                        <li>Sensible líquido: \(20 \times 75.4 \times (100 - 25) = 113,100 \text{ kJ}\)</li>
-                        <li>Latente (vaporización): \(20 \times 40,650 = 813,000 \text{ kJ}\)</li>
-                        <li>Sensible vapor: \(20 \times 34 \times (200 - 100) = 68,000 \text{ kJ}\)</li>
-                    </ol>
-                    <p><strong>Total H₂O:</strong> 994,100 kJ. ¡Ignorar el calor latente es el error más común en exámenes!</p>
-                </div>
             </div>
 
-            <!-- PASO 6: RETO DE CAMBIO DE CONDICIÓN -->
+            <!-- PASO 6: Problema Base de Energía (Alineado con PDF) -->
             <div class="step-container" id="step6">
-                <div class="info-card challenge-card">
-                    <span class="badge bg-danger mb-2"><i class="fas fa-exclamation-triangle me-1"></i> MODO RETO: CAMBIANDO LAS REGLAS</span>
-                    <h4><i class="fas fa-random me-2"></i>Reto: Cambio de Condición de Frontera</h4>
-                    <p>En el problema anterior, el agua salía como vapor a 200°C. Ahora, el ingeniero de planta instala un <strong>condensador</strong> en la salida de los humos. El agua ahora sale como <strong>líquido a 25°C</strong>.</p>
-                    <div class="engineering-note">
-                        <i class="fas fa-lightbulb me-2"></i><strong>Pista de Ingeniería:</strong> Si el estado final del agua es líquido a 25°C, y nuestro estado de referencia para la tabla de \(\Delta H_c^\circ\) YA ES líquido a 25°C... ¿cuánto es el cambio de entalpía (\(\Delta H_{F2}\)) para el agua en este nuevo escenario?
-                    </div>
+                <div class="info-card">
+                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 6 de 8</span>
+                    <h4><i class="fas fa-fire me-2"></i>Balance de Energía: La Trayectoria de 3 Pasos</h4>
+                    <p>Usamos los 100 kmol de CH₄. El aire entra a 50°C, los productos salen a 200°C.</p>
+                    <p><strong>Datos (del PDF):</strong> \(\Delta H_c^\circ(\text{CH}_4) = -890,360 \text{ kJ/kmol}\). \(Cp_{\text{O}_2}=30\), \(Cp_{\text{N}_2}=29\), \(Cp_{\text{CO}_2}=40\), \(Cp_{\text{H}_2\text{O}(l)}=75.4\), \(Cp_{\text{H}_2\text{O}(g)}=34 \text{ kJ/kmol·°C}\). \(\Delta H_{vap} = 40,650 \text{ kJ/kmol}\).</p>
                 </div>
 
-                <div class="info-card" style="border-left-color: var(--accent-red);">
-                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Desafío de Análisis</h5>
+                <div class="info-card" style="border-left-color: var(--secondary-color);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>El Reto del Agua (Latente + Sensible)</h5>
                     <div class="mb-4">
-                        <p class="mb-2">1. ¿Cuál es el valor de \(\Delta H_{F2}\) (calentamiento de productos) específicamente para la corriente de agua en este nuevo escenario?</p>
-                        <label class="quiz-option"><input type="radio" name="q6_1" value="a"> 994,100 kJ (es el mismo, la energía se conserva).</label>
-                        <label class="quiz-option"><input type="radio" name="q6_1" value="b"> 0 kJ, porque no hay cambio de temperatura ni de fase respecto a la referencia de 25°C líquido.</label>
-                        <label class="quiz-option"><input type="radio" name="q6_1" value="c"> -994,100 kJ, porque se está enfriando.</label>
+                        <p class="mb-2">1. Para el paso 3 (\(\Delta H_{F2}\)), ¿cómo se calcula la entalpía de los 200 kmol de H₂O que salen como vapor a 200°C, si la tabla de combustión asume que están líquidos a 25°C?</p>
+                        <label class="quiz-option"><input type="radio" name="q6_1" value="a"> Solo \(n \cdot Cp_{gas} \cdot (200 - 25)\).</label>
+                        <label class="quiz-option"><input type="radio" name="q6_1" value="b"> Calentar líquido (25→100°C) + Vaporizar a 100°C + Calentar vapor (100→200°C).</label>
+                        <label class="quiz-option"><input type="radio" name="q6_1" value="c"> Vaporizar a 25°C y luego calentar el vapor a 200°C.</label>
                     </div>
 
                     <div id="feedback6" class="feedback-msg"></div>
@@ -555,22 +575,66 @@
                             <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
                         </button>
                         <button class="btn btn-action d-none" id="next6" onclick="nextStep(7)" style="background: linear-gradient(135deg, #00cc66, #009955);">
-                            Evaluación Final <i class="fas fa-flag-checkered ms-2"></i>
+                            Siguiente Paso <i class="fas fa-arrow-right ms-2"></i>
                         </button>
                     </div>
                 </div>
 
                 <div class="solution-box" id="solution6">
-                    <h5><i class="fas fa-calculator me-2 text-success"></i>Desglose del Reto</h5>
-                    <p><strong>Respuesta: 0 kJ.</strong></p>
-                    <p>La entalpía es una función de estado. Si la tabla de \(\Delta H_c^\circ\) asume que el agua producto está a 25°C en estado líquido, y tu condición de salida real es EXACTAMENTE esa, no hay trayectoria que calcular. \(\Delta H = H_{final} - H_{inicial} = H_{25°C, liq} - H_{25°C, liq} = 0\). Este cambio ahorra una enorme cantidad de energía que antes se "perdía" calentando y vaporizando el agua.</p>
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Solución del Paso 6 (\(\Delta H_{F2}\) para el agua)</h5>
+                    <p>La trayectoria correcta para el agua (200 kmol) es en 3 etapas:</p>
+                    <ol>
+                        <li>Sensible líquido (25→100°C): \(200 \times 75.4 \times (100 - 25) = 1,131,000 \text{ kJ}\)</li>
+                        <li>Latente (vaporización a 100°C): \(200 \times 40,650 = 8,130,000 \text{ kJ}\)</li>
+                        <li>Sensible vapor (100→200°C): \(200 \times 34 \times (200 - 100) = 680,000 \text{ kJ}\)</li>
+                    </ol>
+                    <p><strong>Total H₂O:</strong> \(1,131,000 + 8,130,000 + 680,000 = \textbf{9,941,000 kJ}\). ¡Ignorar el calor latente es el error más común en exámenes!</p>
                 </div>
             </div>
 
-            <!-- PASO 7: Integración y Normativa -->
+            <!-- PASO 7: RETO DE CAMBIO DE CONDICIÓN -->
             <div class="step-container" id="step7">
+                <div class="info-card challenge-card">
+                    <span class="badge bg-danger mb-2"><i class="fas fa-exclamation-triangle me-1"></i> MODO RETO: CAMBIANDO LAS REGLAS</span>
+                    <h4><i class="fas fa-random me-2"></i>Reto: Cambio de Condición de Frontera</h4>
+                    <p>En el problema anterior, el agua salía como vapor a 200°C. Ahora, el ingeniero de planta instala un <strong>condensador</strong> en la salida de los humos para recuperar calor. El agua ahora sale como <strong>líquido a 25°C</strong>.</p>
+                    <div class="engineering-note">
+                        <i class="fas fa-lightbulb me-2"></i><strong>Pista de Ingeniería:</strong> Si el estado final del agua es líquido a 25°C, y nuestro estado de referencia para la tabla de \(\Delta H_c^\circ\) YA ES líquido a 25°C... ¿cuánto es el cambio de entalpía (\(\Delta H_{F2}\)) para el agua en este nuevo escenario?
+                    </div>
+                </div>
+
+                <div class="info-card" style="border-left-color: var(--accent-red);">
+                    <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Desafío de Análisis</h5>
+                    <div class="mb-4">
+                        <p class="mb-2">1. ¿Cuál es el valor de \(\Delta H_{F2}\) (calentamiento de productos) específicamente para la corriente de agua en este nuevo escenario?</p>
+                        <label class="quiz-option"><input type="radio" name="q7_1" value="a"> 9,941,000 kJ (es el mismo, la energía se conserva).</label>
+                        <label class="quiz-option"><input type="radio" name="q7_1" value="b"> 0 kJ, porque no hay cambio de temperatura ni de fase respecto a la referencia de 25°C líquido.</label>
+                        <label class="quiz-option"><input type="radio" name="q7_1" value="c"> -9,941,000 kJ, porque se está enfriando.</label>
+                    </div>
+
+                    <div id="feedback7" class="feedback-msg"></div>
+                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                        <button class="btn btn-back" onclick="prevStep(6)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
+                        <button class="btn btn-action" id="checkBtn7" onclick="checkStep(7, {'q7_1': 'b'})">
+                            <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
+                        </button>
+                        <button class="btn btn-action d-none" id="next7" onclick="nextStep(8)" style="background: linear-gradient(135deg, #00cc66, #009955);">
+                            Evaluación Final <i class="fas fa-flag-checkered ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solution-box" id="solution7">
+                    <h5><i class="fas fa-calculator me-2 text-success"></i>Desglose del Reto</h5>
+                    <p><strong>Respuesta: 0 kJ.</strong></p>
+                    <p>La entalpía es una función de estado. Si la tabla de \(\Delta H_c^\circ\) asume que el agua producto está a 25°C en estado líquido, y tu condición de salida real es EXACTAMENTE esa, no hay trayectoria que calcular. \(\Delta H = H_{final} - H_{inicial} = H_{25°C, liq} - H_{25°C, liq} = 0\). Este cambio ahorra una enorme cantidad de energía que antes se "perdía" calentando y vaporizando el agua (los ~9.94 MJ calculados antes).</p>
+                </div>
+            </div>
+
+            <!-- PASO 8: Integración y Normativa -->
+            <div class="step-container" id="step8">
                 <div class="info-card">
-                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 7 de 7</span>
+                    <span class="badge bg-primary mb-2"><i class="fas fa-info-circle me-1"></i> Paso 8 de 8</span>
                     <h4><i class="fas fa-globe-americas me-2"></i>Impacto Real: Sostenibilidad y Normativa</h4>
                     <p>Los balances no son solo números; son dinero y competitividad. Un exceso de aire mal calculado significa que estás gastando energía en calentar Nitrógeno (que no participa en la reacción) y lo estás expulsando por la chimenea.</p>
                     <ul class="list-unstyled mt-3">
@@ -583,15 +647,15 @@
                     <h5 class="mb-3"><i class="fas fa-question-circle me-2"></i>Decisión de Ingeniería</h5>
                     <div class="mb-4">
                         <p class="mb-2">1. Para reducir la huella de carbono y mejorar la eficiencia de una caldera, ¿qué acción directa se deriva de un balance de materia riguroso?</p>
-                        <label class="quiz-option"><input type="radio" name="q7_1" value="a"> Aumentar el exceso de aire al 100% para asegurar que no se genere CO.</label>
-                        <label class="quiz-option"><input type="radio" name="q7_1" value="b"> Optimizar el % de aire en exceso (ej. bajarlo de 57% a 15-20% con buenos quemadores) para minimizar el calor sensible perdido en el N₂ de los humos.</label>
-                        <label class="quiz-option"><input type="radio" name="q7_1" value="c"> Cambiar a un combustible con mayor contenido de carbono.</label>
+                        <label class="quiz-option"><input type="radio" name="q8_1" value="a"> Aumentar el exceso de aire al 100% para asegurar que no se genere CO.</label>
+                        <label class="quiz-option"><input type="radio" name="q8_1" value="b"> Optimizar el % de aire en exceso (ej. bajarlo de 57% a 15-20% con buenos quemadores) para minimizar el calor sensible perdido en el N₂ de los humos.</label>
+                        <label class="quiz-option"><input type="radio" name="q8_1" value="c"> Cambiar a un combustible con mayor contenido de carbono.</label>
                     </div>
 
-                    <div id="feedback7" class="feedback-msg"></div>
+                    <div id="feedback8" class="feedback-msg"></div>
                     <div class="d-flex gap-3 mt-3 flex-wrap">
-                        <button class="btn btn-back" onclick="prevStep(6)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
-                        <button class="btn btn-action" id="checkBtn7" onclick="checkStep(7, {'q7_1': 'b'})">
+                        <button class="btn btn-back" onclick="prevStep(7)"><i class="fas fa-arrow-left me-2"></i>Regresar</button>
+                        <button class="btn btn-action" id="checkBtn8" onclick="checkStep(8, {'q8_1': 'b'})">
                             <i class="fas fa-check-circle me-2"></i>Verificar Respuesta
                         </button>
                         <button class="btn btn-action d-none" id="finishBtn" onclick="finishLab()" style="background: linear-gradient(135deg, #00cc66, #009955);">
@@ -600,9 +664,9 @@
                     </div>
                 </div>
 
-                <div class="solution-box" id="solution7">
+                <div class="solution-box" id="solution8">
                     <h5><i class="fas fa-trophy me-2 text-warning"></i>¡Módulo Completado!</h5>
-                    <p><strong>Conclusión:</strong> Has demostrado que no solo sabes seguir una fórmula, sino que puedes adaptar el balance de masa y energía cuando las condiciones del proceso cambian (cálculo inverso, cambio de fase). Esta es la esencia del pensamiento ingenieril.</p>
+                    <p><strong>Conclusión:</strong> Has demostrado que no solo sabes seguir una fórmula, sino que puedes adaptar el balance de masa y energía cuando las condiciones del proceso cambian (cálculo inverso, combustión incompleta, cambio de fase). Esta es la esencia del pensamiento ingenieril.</p>
                 </div>
             </div>
 
@@ -655,7 +719,7 @@
             let allCorrect = true;
             let feedbackEl = document.getElementById(`feedback${stepNum}`);
             let checkBtn = document.getElementById(`checkBtn${stepNum}`);
-            let nextBtn = document.getElementById(stepNum === 7 ? 'finishBtn' : `next${stepNum}`);
+            let nextBtn = document.getElementById(stepNum === 8 ? 'finishBtn' : `next${stepNum}`);
             let solutionBox = document.getElementById(`solution${stepNum}`);
             
             for (const [key, value] of Object.entries(correctAnswers)) {
@@ -682,7 +746,7 @@
             } else {
                 feedbackEl.className = 'feedback-msg error';
                 // Mensajes personalizados para los retos
-                if(stepNum === 3 || stepNum === 6) {
+                if(stepNum === 3 || stepNum === 4 || stepNum === 7) {
                     feedbackEl.innerHTML = '<i class="fas fa-times-circle me-2"></i>Respuesta incorrecta. Recuerda: en los "Modos Reto", las reglas cambian. Revisa la "Pista de Ingeniería" en la tarjeta roja y vuelve a intentarlo.';
                 } else {
                     feedbackEl.innerHTML = '<i class="fas fa-times-circle me-2"></i>Respuesta incorrecta. Revisa la información del paso, selecciona otra opción y vuelve a verificar.';
@@ -704,7 +768,7 @@
             });
             document.getElementById(`step${nextStepNum}`).classList.add('active');
             
-            const progress = (nextStepNum / 7) * 100;
+            const progress = (nextStepNum / 8) * 100;
             document.getElementById('progressBar').style.width = `${progress}%`;
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -716,7 +780,7 @@
             });
             document.getElementById(`step${prevStepNum}`).classList.add('active');
             
-            const progress = (prevStepNum / 7) * 100;
+            const progress = (prevStepNum / 8) * 100;
             document.getElementById('progressBar').style.width = `${progress}%`;
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -733,7 +797,7 @@
                             </div>
                             <div class="modal-body text-center">
                                 <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
-                                <p>Has dominado los balances de masa y energía, incluyendo los retos de cambio de parámetros.</p>
+                                <p>Has dominado los balances de masa y energía, incluyendo los retos de cambio de parámetros y combustión incompleta.</p>
                                 <p class="text-white-50">Prof. Juan Velasco Colan (2026-2)</p>
                             </div>
                             <div class="modal-footer border-top-0 justify-content-center">
